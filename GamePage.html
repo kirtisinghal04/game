@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="styles/GamePage.css"/>
+    <!-- <script type="module" src="usersInfo.js"></script> -->
+    <script src="script/functions.js"></script>
+    <script src="script/classes.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script type src="script/GamePage.js"></script>
+  </head>
+
+  <body>
+    
+    <audio id="game_play" loop>
+      <source src="audio/oggy_cockroaches.mp3" type="audio/mp3" />
+    </audio>
+
+    <audio id="click_sound">
+      <source src="audio/zapsplat_multimedia_button_click_bright_002_92099.mp3" type="audio/mp3" />
+    </audio>
+
+    <div id="infoContainer">
+      <p id="username">Player Name : </p>
+      <p id="totalScore">Score : </p>
+    </div>
+
+    <div class="mode_container">
+      <span class="easy_mode">Easy Mode</span>
+      <span class="hard_mode">Hard Mode</span>
+    </div>
+
+    <div id="board"></div>
+
+    <div id="EmojisContainer">
+      <div class="scoreContainer">
+        <img class="emoji_image" src="images/1.png" />
+        <p class="score">0</p>
+      </div>
+      <div class="scoreContainer">
+        <img class="emoji_image" src="images/2.png" />
+        <p class="score">0</p>
+      </div>
+      <div class="scoreContainer">
+        <img class="emoji_image" src="images/3.png" />
+        <p class="score">0</p>
+      </div>
+      <div class="scoreContainer">
+        <img class="emoji_image" src="images/4.png" />
+        <p class="score">0</p>
+      </div>
+      <div class="scoreContainer">
+        <img class="emoji_image" src="images/5.png" />
+        <p class="score">0</p>
+      </div>
+      <button>Start</button>
+    </div>
+    <button id="resetButton" class="reset_button">Reset</button>
+
+</body>
+
+</html>

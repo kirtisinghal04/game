@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Board Page with Video Background</title>
+    <link rel="stylesheet" href="styles/boardPage.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="script/functions.js"></script>
+    <script src="script/boardPage.js" defer></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden; /* Prevents scrolling */
+        }
+
+        /* Video Background Styling */
+        .video-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Makes video cover entire area */
+            z-index: -1; /* Places the video behind other content */
+        }
+
+        .card-container {
+            perspective: 1000px;
+            z-index: 1; /* Ensures card is above the video */
+        }
+
+        .flip-card {
+            width: 600px;
+            height: 700px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s;
+            cursor: pointer;
+        }
+
+        .flip-card-inner {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transition: transform 0.6s;
+        }
+
+        .flip-card-front, .flip-card-back {
+        background-image: url('/images/scoreboard.jpeg');
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .flip-card-front {
+            background-image: url('/images/scoreboard.jpeg');
+            background-color: #4CAF50;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            border-radius: 10px;
+        }
+
+        .flip-card-back {
+            
+            background-image: url('images/skyyy.jpg');
+            background-color: #fff;
+            color: black;
+            transform: rotateY(180deg);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border-radius: 10px;
+        }
+
+        .result-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            background-image: url('https://i.pinimg.com/564x/3E/iApT8yoEGoIVFw7jj8g8i/bd3adf8f379c7f0a3db079a083bb01cf.jpg'); /* Use the correct URL from Pinterest */
+            background-size: cover;
+            background-position: center;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3); /* Adjusted for better readability */
+            color: white; /* Text color for contrast */
+        }
+
+        th {
+            background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background for headers */
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .btn-danger {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .btn-primary {
+            background-color: #2196F3;
+            color: white;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .mt-4 {
+            margin-top: 20px;
+        }
+
+        .flip-card:hover .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Video Background -->
+    <video class="video-bg" autoplay muted loop>
+        <!-- Replace with the link to your desired video -->
+        <source src="images/emoji_video.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <div class="card-container">
+        <div class="flip-card">
+            <div class="flip-card-inner">
+                <!-- Front side of the card -->
+                <div class="flip-card-front">
+                    <h1>Wanna check result?</h1>
+                </div>
+
+                <!-- Back side of the card -->
+                <div class="flip-card-back">
+                    <div class="result-container">
+                        <span id="resultText">Your Result: </span>
+                        <span id="emoji">&#128578;</span> <!-- Default emoji: normal smile -->
+                    </div>
+                    <table id="InfoTable">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Score</th>
+                            </tr>
+                        </thead>
+                        <tbody id="scoreBoardBody">
+                            <!-- Scores will be dynamically loaded here -->
+                        </tbody>
+                    </table>
+
+                    <!-- Controls -->
+                    <div class="text-center mt-4">
+                        <button class="btn btn-danger btn-custom" id="resetScoresBtn">Reset All Scores</button>
+                        <button class="btn btn-primary btn-custom" onclick="location.href='GamePage.html'">Back to Game</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Function to display scores
+        function displayScores() {
+            const scoreBoardBody = document.getElementById('scoreBoardBody');
+            scoreBoardBody.innerHTML = ''; // Clear existing records
+
+            let scores = JSON.parse(localStorage.getItem('emojiGameScores')) || [];
+
+            if (scores.length === 0) {
+                const defaultRow = document.createElement("tr");
+                defaultRow.innerHTML = "<td colspan='2' class='text-center'>No Scores Available</td>";
+                scoreBoardBody.appendChild(defaultRow);
+            } else {
+                scores.forEach(score => {
+                    let row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${score.playerName}</td>
+                        <td>${score.score}</td>
+                    `;
+                    scoreBoardBody.appendChild(row);
+                });
+            }
+        }
+
+        // Function to reset all scores
+        // Function to reset all scores and clear localStorage
+function resetScores() {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "This will permanently clear all the scores!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, reset it!',
+        cancelButtonText: 'No, keep it'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Clear all pre-stored data in localStorage
+            localStorage.removeItem('emojiGameScores');  // Clears only the emojiGameScores
+            // localStorage.clear();  // Uncomment this if you want to clear all localStorage items
+
+            displayScores();  // Refresh the score display
+            Swal.fire('Reset!', 'All scores have been reset.', 'success');
+        }
+    });
+}
+
+
+        // Event Listener for Reset Scores Button
+        document.getElementById('resetScoresBtn').addEventListener('click', resetScores);
+
+        // Display scores when the page loads
+        window.onload = displayScores;
+    </script>
+</body>
+
+</html>
