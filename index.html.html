@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <link rel="stylesheet" href="styles/homePageStyle.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!--linking java file :-functions.js-->
+    <script src="script/functions.js"></script>
+    <!--linking java file :-homepage.js-->
+    <script src="script/homePage.js"></script>
+    <title>Home Page</title>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+</head>
+<body>
+    <img class="sound_icon" src="images/no-sound.png" alt="volume">
+    <audio  loop id="first_music">
+        <source src="audio/cute-mood-151368.mp3" type="audio/mp3">
+    </audio>
+     
+    
+    <audio id="click_sound">
+        <source src="audio/zapsplat_multimedia_button_click_bright_002_92099.mp3" type="audio/mp3">
+    </audio>
+
+
+    <div class="formContainer" >
+        <p class="gameTitle">Emoji Game</p>
+        <input type="text" name="userName" placeholder="Enter your user Name">
+        <div class="alert_message"></div>
+      <div class="button_container">
+        <button class="btn btn-danger start">
+            Start Game
+        </button>
+        <button class="btn btn-primary score_board ">
+            Score Board
+        </button>
+    </div>
+    </div>
+
+</body>
+
+</html>

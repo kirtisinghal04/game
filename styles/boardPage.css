@@ -1,0 +1,125 @@
+/* Body styling for centering content */
+body {
+    background-image: url(../images/emojiesss.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* Video Background Styling */
+.video-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Makes video cover entire area */
+    z-index: -1; /* Places the video behind other content */
+}
+/* Container for the flip card */
+.card-container {
+    perspective: 1000px; /* Enables 3D effect */
+}
+
+/* Flip card styling */
+.flip-card {
+    width: 500px;
+    height: 500px;
+    background-color: transparent;
+}
+
+.flip-card-inner {
+    width: 100%;
+    height: 100%;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+    position: relative;
+    background-image: url(../images/skyyy.jpg);
+}
+
+/* Trigger the flip effect */
+.flip-card:hover .flip-card-inner {
+    transform: rotateY(180deg);
+}
+
+/* Front and back card sides */
+.flip-card-front, .flip-card-back {
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.flip-card-front {
+    background-color: #f8f9fa;
+    color: black;
+    background-image: url(../images/skyyy.jpg);
+}
+
+.flip-card-back {
+    background-color: #ffffff;
+    transform: rotateY(180deg);
+    flex-direction: column;
+    background-image: url(../images/skyyy.jpg);
+}
+
+/* Result text and emoji */
+.result-container {
+    margin-bottom: 10px;
+}
+
+#resultText {
+    font-size: 40px;
+    font-weight: bold;
+    color: black;
+}
+
+#emoji {
+    font-size: 40px;
+    margin-left: 10px;
+}
+
+/* Table styling */
+#InfoTable {
+    width: 80%;  /* Adjust table width */
+    border-collapse: collapse;  /* Remove space between table borders */
+    margin-top: 20px;
+    font-size: 20px;
+}
+
+#InfoTable th, #InfoTable td {
+    padding: 15px 20px;  /* Add padding for better spacing */
+    text-align: center;  /* Center text in both header and body */
+}
+
+#InfoTable th {
+    background-color: #6c757d;  /* Darker background for table headers */
+    color: white;
+    font-weight: bold;
+}
+
+#InfoTable tr:nth-child(even) {
+    background-color: #f2f2f2;  /* Light gray background for alternate rows */
+}
+
+#InfoTable tr:hover {
+    background-color: #ddd;  /* Slight hover effect for rows */
+}
+
+#InfoTable td {
+    border: 5px solid #ddd;  /* Light border for table cells */
+    color: #333;
+}
+
+#InfoTable th, #InfoTable td {
+    border: 5px solid #b0b0b0;  /* Consistent border for all cells */
+}
